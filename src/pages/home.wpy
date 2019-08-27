@@ -17,15 +17,12 @@
 <template>
   <view class="container">
     <view>林小厨的美食之旅</view>
-    <view>{{weatherData}}</view>
-    <navigator url="/pages/weather" hover-class="navigator-hover">查看天气</navigator>
     <view>
       <image class="img" src="https://s10.mogucdn.com/mlcdn/c45406/180621_63g28k7i946bfgjag3l152a2c9ilf_1080x1440.jpg_750x750.v1cOK.81.jpg" background-size="cover"/>
       <image class="img" src="https://s10.mogucdn.com/mlcdn/c45406/180621_0afkcdj95l69jdc734bkk07ge0i5c_2448x3264.jpg_750x750.v1cOK.81.jpg" background-size="cover"/>
       <image class="img" src="https://s10.mogucdn.com/mlcdn/c45406/180621_8322ff7d2hb6825jaf194eb694b9e_1080x1440.jpg_750x750.v1cOK.81.jpg" background-size="cover"/>
       <image class="img" src="https://s10.mogucdn.com/mlcdn/c45406/180621_7khdc59l63ad3ed409k43a3bcjf5a_1080x1440.jpg_750x750.v1cOK.81.jpg" background-size="cover"/>
       <image class="img" src="https://s10.mogucdn.com/mlcdn/c45406/180621_5llji5ec481bfbb7hhj7d1ehfb13g_3024x4032.jpg_750x750.v1cOK.81.jpg" background-size="cover"/>
-      <image src="http://s11.mogucdn.com/mlcdn/c45406/180802_2kkkcfk371alded10502j89794g93.mp4" bindload="imgLoad"/>
     </view>
 
 
@@ -42,7 +39,6 @@
   import moduleA from 'module-a' // aliasFields ignore module example
   import Group from '../components/group'
   import Toast from 'wepy-com-toast'
-  import bmap from '../libs/bmap-wx'
 
   console.log('moduleA ignored: ', moduleA) // => moduleA ignored: {}
 
@@ -59,9 +55,6 @@
   })
 
   export default class Index extends wepy.page {
-    data = {
-      weatherData: '天气状况'
-    }
     config = {
       navigationBarTitleText: '首页'
     }
@@ -90,53 +83,48 @@
     }
 
     onLoad() {
-      let self = this
-      wx.request({
-        url: 'https://hutaoer.cn/api/test.php',
-        data: {
-          x: '',
-          y: ''
-        },
-        header: {
-          'content-type': 'application/json'
-        },
-        success (res) {
+      // let self = this
+      // wx.request({
+      //   url: 'https://hutaoer.cn/api/test.php',
+      //   data: {
+      //     x: '',
+      //     y: ''
+      //   },
+      //   header: {
+      //     'content-type': 'application/json'
+      //   },
+      //   success (res) {
+      //     console.log(res.data)
+      //   }
+      // })
+
+      // this.$parent.getUserInfo(function (userInfo) {
+      //   if (userInfo) {
+      //     self.userInfo = userInfo
+      //   }
+      //   self.normalTitle = '标题已被修改'
+
+      //   self.setTimeoutTitle = '标题三秒后会被修改'
+      //   setTimeout(() => {
+      //     self.setTimeoutTitle = '到三秒了'
+      //     self.$apply()
+      //   }, 3000)
+
+      //   self.$apply()
+      // })
+
+      wx.cloud.init({
+        env: 'test-eycd2'
+      })
+      const $db = wx.cloud.database({
+        env: 'test-eycd2'
+      })
+      $db.collection('users')
+        .limit(10)
+        .get()
+        .then((res) => {
           console.log(res.data)
-        }
-      })
-      var BMap = new bmap({ 
-          ak: 'HxVhMehax1zqdWGktl68WVat29Ia7EBf' 
-      }); 
-      var fail = function(data) { 
-          console.log(data) 
-      }; 
-      var success = function(data) { 
-          var weatherData = data.currentWeather[0]; 
-          weatherData = '城市：' + weatherData.currentCity + 'PM2.5：' + weatherData.pm25 + '日期：' + weatherData.date +'温度：' + weatherData.temperature  +'天气：' + weatherData.weatherDesc  +'风力：' + weatherData.wind; 
-          console.log(weatherData);
-          self.weatherData = weatherData;
-          console.log(self)
-      } 
-      // 发起weather请求 
-      BMap.weather({ 
-          fail: fail, 
-          success: success 
-      }); 
-
-      this.$parent.getUserInfo(function (userInfo) {
-        if (userInfo) {
-          self.userInfo = userInfo
-        }
-        self.normalTitle = '标题已被修改'
-
-        self.setTimeoutTitle = '标题三秒后会被修改'
-        setTimeout(() => {
-          self.setTimeoutTitle = '到三秒了'
-          self.$apply()
-        }, 3000)
-
-        self.$apply()
-      })
+        })
     }
   }
 </script>
