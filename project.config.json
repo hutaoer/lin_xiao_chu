@@ -1,44 +1,16 @@
 {
-	"description": "A WePY project",
+	"miniprogramRoot": "dist/",
+	"projectname": "linxiaochu-taro",
+	"description": "林小厨的小程序",
+	"appid": "touristappid",
 	"setting": {
 		"urlCheck": true,
 		"es6": false,
 		"postcss": false,
-		"minified": false,
-		"newFeature": true
+		"minified": false
 	},
 	"compileType": "miniprogram",
-	"appid": "wx6851faae0a253c39",
-	"projectname": "lin_xiao_chu",
-	"miniprogramRoot": "dist/",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
-		"game": {
-			"list": []
-		},
-		"miniprogram": {
-			"current": 0,
-			"list": [
-				{
-					"id": -1,
-					"name": "pages/weather",
-					"pathName": "pages/weather",
-					"scene": null
-				}
-			]
-		}
-	}
+	"condition": {}
 }
