@@ -1,5 +1,5 @@
 const config = {
-  projectName: 'linxiaochu-taro',
+  projectName: 'lin_xiao_chu',
   date: '2019-11-26',
   designWidth: 750,
   deviceRatio: {
